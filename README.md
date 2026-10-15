@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  🌐 <strong>Live Demo:</strong> <a href="https://onvora.vercel.app"><strong>https://onvora.vercel.app</strong></a>
+</p>
+
+<p align="center">
   <a href="#-tentang-onvora">Tentang</a> •
   <a href="#-fitur-utama--rute-aplikasi">Fitur Utama</a> •
   <a href="#-arsitektur-teknologi">Teknologi</a> •
