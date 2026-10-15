@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "fluid-functionalism": {
+      "source": "mickadesign/fluid-functionalism",
+      "sourceType": "github",
+      "skillPath": "skills/fluid-functionalism/SKILL.md",
+      "computedHash": "e4930da14ec901705e3277e770654509048ad60b5b6e58efd1c0cc3b227f86fe"
+    }
+  }
+}
