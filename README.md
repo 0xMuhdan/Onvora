@@ -1,25 +1,22 @@
 # Onvora — The Developer System for Web3
 
 <p align="center">
-  <img src="public/assets/brand/onvora-logo.png" alt="Onvora Logo" width="220" />
-</p>
-
-<p align="center">
-  <img src="public/assets/brand/onvora-mascot.png" alt="Onvora Builder Mascot" width="180" />
+  <img src="public/assets/brand/onvora-logo.png" alt="Onvora Logo" width="240" />
 </p>
 
 <p align="center">
   <strong>Platform Pembelajaran Rekayasa Web3 Berbasis Bukti Nyata & Ekosistem Builder.</strong><br />
-  Stop watching tutorials. Start building real protocols.
+  <em>Stop watching tutorials. Start building real protocols.</em>
 </p>
 
 <p align="center">
-  <a href="#fitur-utama">Fitur Utama</a> •
-  <a href="#arsitektur-teknologi">Teknologi</a> •
-  <a href="#struktur-proyek">Struktur Direktori</a> •
-  <a href="#desain--antarmuka">Sistem Desain</a> •
-  <a href="#komunitas-bfc">Komunitas BFC</a> •
-  <a href="#cara-menjalankan">Menjalankan Proyek</a>
+  <a href="#-tentang-onvora">Tentang</a> •
+  <a href="#-fitur-utama--rute-aplikasi">Fitur Utama</a> •
+  <a href="#-arsitektur-teknologi">Teknologi</a> •
+  <a href="#-sistem-desain-fluid-functionalism">Sistem Desain</a> •
+  <a href="#-struktur-direktori">Struktur Direktori</a> •
+  <a href="#-komunitas-bfc-build-from-cafe">Komunitas BFC</a> •
+  <a href="#-cara-menjalankan-proyek">Cara Menjalankan</a>
 </p>
 
 ---
@@ -27,10 +24,11 @@
 ## 🌟 Tentang Onvora
 
 **Onvora** adalah sistem pembelajaran rekayasa Web3 (*Web3 Developer Ecosystem*) yang dirancang untuk mengakhiri siklus pasif *tutorial hell*. Alih-alih menjual video pasif atau sertifikat PDF kosong yang tidak diakui industri, Onvora memvalidasi kompetensi pengembang melalui:
+
 1. **Latihan Praktikum Langsung di Browser** (*Zero Gas, No Setup Friction*).
 2. **Evaluasi Otomatis Assertion Test Suite** (*Foundry-grade validation*).
 3. **8-Poin Reality Check** sebelum smart contract dideploy ke testnet publik.
-4. **Evidence Ledger**: Rekam jejak portofolio on-chain terverifikasi (Level A – Level E) yang dapat diaudit langsung oleh hiring partner dan yayasan protokol global.
+4. **Evidence Ledger & Builder Passport**: Rekam jejak portofolio on-chain terverifikasi (Level 1 – Level 5) yang dapat diaudit langsung oleh hiring partner dan yayasan protokol global.
 
 ---
 
@@ -40,7 +38,7 @@ Aplikasi Onvora dibangun dengan Next.js App Router yang mencakup rute-rute utama
 
 | Rute | Modul | Deskripsi & Fungsionalitas |
 | :--- | :--- | :--- |
-| **`/`** | **Landing Page** | Antarmuka interaktif 9-Fold dengan estetika Linear Obsidian Dark, revolving hero text, interactive terminal, dan showcase orbit konsentrik komunitas. |
+| **`/`** | **Landing Page** | Antarmuka interaktif dengan estetika Linear Obsidian Dark, animasi judul ketik berganti ganda (`WEB3` ↔ `AI` dan `PROGRAMMING` → `BUILDING` → `LEARNING`), interactive terminal, dan showcase orbit komunitas. |
 | **`/tracks`** | **Developer Tracks Workstation** | Katalog 25+ ekosistem pengembang (Ethereum, Monad, Solana, Arbitrum, Sui, 0G, dll.) dilengkapi **Fluid Functionalism Sidebar**, filter arsitektur, dan pencarian cepat. |
 | **`/tracks/ethereum`** | **Ethereum Developer Syllabus** | Silabus kanonik 12 Phase (dari mental model nol, sintaks Solidity, testing Foundry, hingga audit keamanan). |
 | **`/learn/ethereum`** | **Lesson Player UI (ONV-06)** | Pemutar materi pelajaran interaktif 2-panel dengan 4 simulator visual (EIP-1559, EVM Stack, Storage Packing, Reentrancy) dan checkpoint kuis wajib lulus. |
@@ -48,6 +46,8 @@ Aplikasi Onvora dibangun dengan Next.js App Router yang mencakup rute-rute utama
 | **`/builds`** | **Production Protocols** | Katalog proyek capstone mandiri (Escrow, AMM Liquidity, ERC-2981 Royalty, ZK Verifier) yang menerapkan kartu **CardGroup 2-D Fluid Hover**. |
 | **`/builds/[id]`** | **Capstone Spec & Workbench** | Panduan arsitektur protokol multi-kontrak, diagram state machine, skrip deploy Sepolia, dan form evaluasi **The 8-Point Reality Check**. |
 | **`/passport`** | **Builder Passport (ONV-13)** | Kartu kredensial digital kanonik (`ONV-ETH-XXXXX`), status pencapaian *Certified Ethereum Learner/Builder*, dan matriks 5-Level Capability Gates. |
+| **`/profile`** | **Builder Profile Settings** | Pengaturan profil personal: unggah foto / pilih avatar builder, bio keahlian, status ketersediaan, dan tautan sosial media (𝕏, Instagram, GitHub, Telegram, Website). |
+| **`/certificate/[id]`** | **Visual Certificate (A4 Print-Ready)** | Lembar sertifikat resmi berbingkai emas Obsidian dengan stempel segel protokol, tombol cetak/simpan PDF otomatis, dan tombol *Add to LinkedIn*. |
 | **`/verify/[credentialId]`** | **Open Public Verification** | Halaman verifikasi publik terbuka tanpa login untuk rekruter/auditor guna memeriksa keabsahan bukti kompetensi on-chain. |
 | **`/evidence`** | **Evidence Ledger** | Rekam jejak bukti kompetensi berjenjang (Level A: Merged PR, Level B: Independent Testnet Deploy, Level C: Guided Modules). |
 | **`/community`** | **BFC (Build From Cafe)** | Komunitas santai offline/online, panduan 6 cara menghasilkan uang di Web3, Chapter kota (**Tasikmalaya Founder Chapter #1**), dan integrasi **Waiting List**. |
@@ -65,7 +65,7 @@ Aplikasi Onvora dibangun dengan Next.js App Router yang mencakup rute-rute utama
 * **Styling & CSS**: Tailwind CSS v4, PostCSS
 * **Animation & Motion**:
   * [Framer Motion](https://motion.dev/) (Spring physics, counter-rotation orbits, layout transitions)
-  * [GSAP](https://greensock.com/) (Hero dynamic word loop)
+  * [GSAP](https://greensock.com/) (Hero dynamic typing & revolving word loop)
 * **Database & ORM**:
   * PostgreSQL (Postgres.js)
   * [Drizzle ORM](https://orm.drizzle.team/) & Drizzle Kit
@@ -87,7 +87,6 @@ Ditenagai oleh font variabel **Inter Variable** dengan dukungan sumbu ukuran opt
 * **`body`**: 13px / leading 20px (Compact: 12/18px) — Paragraf & kontrol form
 * **`caption`**: 12px / leading 16px (Compact: 11/14px) — Label sekunder & tombol
 * **`micro`**: 11px / leading 14px (Compact: 10/12px) — Badge teknikal & tag kode
-* **Prosa Markdown**: Ditata otomatis melalui selektor `.typeset` dan `.typeset-compact`.
 
 ### 2. Sizes System (`@/lib/size-context`)
 Tangga kepadatan dua tingkat (*Two-Step Size Ladder*):
@@ -109,7 +108,7 @@ Onvora mengusung konsep komunitas santai namun bernilai tinggi: **BFC (Build Fro
 * **Format**: Kumpul santai akhir pekan di coffee shop lokal, buka laptop, sharing airdrop testnet, bedah strategi liquidity pool (DLMM), trading on-chain, dan koding bareng tanpa sekat.
 * **Waiting List Batch 01**: Akses grup privat (WhatsApp / Telegram) menggunakan sistem waiting list terkurasi untuk menjaga kualitas diskusi tanpa bot atau spammer.
 * **Chapter Kota**:
-  1. 📍 **Tasikmalaya** (*Founder Chapter #1* — Hazet, Dadaha & Unsil Coffee Spots)
+  1. 📍 **Tasikmalaya** (*Founder Chapter #1* — Dadaha & Unsil Coffee Spots)
   2. 📍 **Jakarta & Sekitarnya** (Senopati & Blok M)
   3. 📍 **Bandung** (Dago & Riau)
   4. 📍 **Surabaya** (Barat & Pusat)
@@ -126,29 +125,29 @@ Onvora/
 ├── public/
 │   └── assets/
 │       ├── avatars/          # Foto portrait anggota komunitas (avatar-1 s/d avatar-20)
-│       ├── brand/            # Logo, ikon, & aset visual resmi Onvora
+│       ├── brand/            # Logo & aset visual resmi Onvora
 │       └── tracks/           # Logo transparan ekosistem (ethereum, monad, solana, arbitrum, sui)
 ├── src/
 │   ├── app/
-│   │   ├── (public)/         # Halaman publik (/, /tracks, /practice, /community, dll.)
-│   │   ├── api/              # API endpoints (/auth, /diagnostic, /community/waitlist)
+│   │   ├── (public)/         # Halaman publik (/, /tracks, /practice, /passport, /profile, dll.)
+│   │   ├── api/              # API endpoints (/auth, /v1/lessons, /diagnostic, /community/waitlist)
 │   │   ├── globals.css       # Tailwind v4 entry & CSS variables Fluid Functionalism
 │   │   └── layout.tsx        # Root layout, Inter Variable Font & Providers
 │   ├── components/
 │   │   ├── animations/       # Motion wrapper & transition helpers
-│   │   ├── hero/             # Revolving text header
+│   │   ├── hero/             # Dynamic typing & revolving text header
 │   │   ├── layout/           # Masthead navbar, Colophon footer, Command palette (⌘K)
 │   │   ├── storytelling/     # Builder Loop scroll-pinned storytelling
-│   │   ├── ui/               # Registry components (button, card, sidebar, dialog, circles, dll.)
+│   │   ├── ui/               # Registry components (button, card, sidebar, dialog, circles, text-type, dll.)
 │   │   └── providers.tsx     # MotionConfig reducedMotion="user" & SizeProvider
 │   ├── db/
 │   │   ├── client.ts         # Koneksi database PostgreSQL
 │   │   └── schema.ts         # Skema Drizzle ORM
 │   ├── hooks/                # Custom hooks (use-fluid-hover, use-touch-primary, use-merge-split)
-│   ├── lib/                  # Library inti (type-scale, size-context, springs, utils)
+│   ├── lib/                  # Library inti (curriculum-data, evidence-service, capstone-data, type-scale)
 │   └── modules/              # Domain logic (analytics event catalog, identity)
-├── docs/                     # Dokumentasi spesifikasi produk (specs/, 00-foundation/)
-├── AGENTS.md                 # Instruksi & invariant rules untuk AI agents
+├── docs/
+│   └── curriculum/           # Silabus kanonik & unit kurikulum teknis terbuka
 ├── components.json           # Konfigurasi shadcn registry
 └── package.json              # Dependensi & skrip npm
 ```
@@ -189,5 +188,5 @@ npm run start
 
 ---
 
-## 📄 Lisensi & Aturan Kontribusi
-Proyek ini dikembangkan secara modular berdasarkan spesifikasi produk kanonik di folder `docs/` dan mematuhi panduan arsitektur di `AGENTS.md`. Materi kurikulum modular (*Ethereum Developer Track*) bersifat independen dan siap dikonfigurasi lebih lanjut.
+## 📄 Lisensi
+Proyek ini dikembangkan secara modular berdasarkan spesifikasi kurikulum terbuka di folder `docs/curriculum/`. Seluruh materi pembelajaran mandiri dirancang untuk melahirkan pengembang Web3 standar industri produksi.

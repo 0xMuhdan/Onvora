@@ -99,7 +99,7 @@ const MEETUP_CIRCLES = [
   {
     id: "tasik",
     city: "Tasikmalaya",
-    venue: "Hazet, Dadaha & Unsil Coffee Spots",
+    venue: "Dadaha & Unsil Coffee Spots",
     badge: "● FOUNDER CHAPTER",
     focus: "Airdrop Alpha, Liquidity DLMM & Ngopi Bareng",
     members: 58,
