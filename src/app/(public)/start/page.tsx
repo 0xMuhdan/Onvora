@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Check, AlertCircle, ArrowRight } from "lucide-react";
 import { typeClass } from "@/lib/type-scale";
 import { cn } from "@/lib/utils";
+import { validateOnvoraEmail } from "@/modules/identity/email-policy";
 
 export default function StartPage() {
   const router = useRouter();
@@ -26,12 +27,20 @@ export default function StartPage() {
   };
 
   const isPasswordStrong = Object.values(checks).every(Boolean);
-  const isEmailGmail = email.trim().toLowerCase().endsWith("@gmail.com");
-  const canSubmit = isEmailGmail && isPasswordStrong && status !== "loading";
+  const emailCheck = validateOnvoraEmail(email.trim());
+  const isAllowedEmail = emailCheck.ok;
+
+  const canSubmit = isAllowedEmail && isPasswordStrong && status !== "loading";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!canSubmit) return;
+    if (!canSubmit) {
+      if (!isAllowedEmail && email) {
+        setStatus("error");
+        setErrorMessage(emailCheck.message || "Email tidak diizinkan.");
+      }
+      return;
+    }
 
     setStatus("loading");
     setErrorMessage("");
@@ -53,6 +62,7 @@ export default function StartPage() {
         if (typeof window !== "undefined") {
           localStorage.setItem("onvora_user_email", data.email);
           localStorage.setItem("onvora_user_id", data.userId);
+          localStorage.setItem("onvora_user_name", data.username || data.email.split("@")[0]);
           if (data.role) {
             localStorage.setItem("onvora_user_role", data.role);
           }
@@ -82,7 +92,7 @@ export default function StartPage() {
             </h1>
 
             <p className={cn("mt-4 sm:mt-6 text-neutral-400 max-w-xl", typeClass("body"))}>
-              Daftar akun instan menggunakan alamat <strong>@gmail.com</strong> dan kata sandi kuat. Tanpa perlu menghubungkan wallet kripto, tanpa biaya gas, dan langsung terhubung ke modul pembelajaran Ethereum.
+              Daftar akun instan menggunakan alamat <strong>@gmail.com</strong> atau <strong>email resmi kampus (@*.ac.id / .edu)</strong> dan kata sandi kuat. Tanpa perlu menghubungkan wallet kripto, tanpa biaya gas, dan langsung terhubung ke modul pembelajaran Ethereum.
             </p>
           </div>
 
@@ -121,19 +131,27 @@ export default function StartPage() {
                   {/* Email Input */}
                   <div>
                     <label className="block text-xs font-mono text-neutral-300 mb-1.5">
-                      Alamat Email Google (@gmail.com)
+                      Email Google (@gmail.com) atau Kampus (@*.ac.id / .edu)
                     </label>
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="nama@gmail.com"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (status === "error") setErrorMessage("");
+                      }}
+                      placeholder="mahasiswa@kampus.ac.id atau nama@gmail.com"
                       required
                       className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-[#5e6ad2] focus:outline-none transition-colors font-mono"
                     />
-                    {email && !isEmailGmail && (
+                    {email && !isAllowedEmail && (
                       <span className="text-[11px] text-amber-400 font-mono mt-1 block">
-                        * Wajib menggunakan domain resmi @gmail.com
+                        {emailCheck.message}
+                      </span>
+                    )}
+                    {email && isAllowedEmail && emailCheck.isAcademic && (
+                      <span className="text-[11px] text-emerald-400 font-mono mt-1 block">
+                        ✓ Email institusi akademik terverifikasi ({emailCheck.domain})
                       </span>
                     )}
                   </div>

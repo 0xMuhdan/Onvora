@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, AlertCircle, ArrowRight } from "lucide-react";
 import { typeClass } from "@/lib/type-scale";
 import { cn } from "@/lib/utils";
+import { validateOnvoraEmail } from "@/modules/identity/email-policy";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,12 +18,19 @@ export default function LoginPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const isEmailGmail = email.trim().toLowerCase().endsWith("@gmail.com");
-  const canSubmit = isEmailGmail && password.length > 0 && status !== "loading";
+  const emailCheck = validateOnvoraEmail(email.trim());
+  const isAllowedEmail = emailCheck.ok;
+  const canSubmit = isAllowedEmail && password.length > 0 && status !== "loading";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!canSubmit) return;
+    if (!canSubmit) {
+      if (!isAllowedEmail && email) {
+        setStatus("error");
+        setErrorMessage(emailCheck.message || "Email tidak diizinkan.");
+      }
+      return;
+    }
 
     setStatus("loading");
     setErrorMessage("");
@@ -44,7 +52,7 @@ export default function LoginPage() {
         if (typeof window !== "undefined") {
           localStorage.setItem("onvora_user_email", data.email);
           localStorage.setItem("onvora_user_id", data.userId);
-          localStorage.setItem("onvora_user_name", "Muhdan");
+          localStorage.setItem("onvora_user_name", data.username || data.email.split("@")[0]);
           if (data.role) {
             localStorage.setItem("onvora_user_role", data.role);
           }
@@ -131,7 +139,7 @@ export default function LoginPage() {
             Masuk ke Onvora
           </h1>
           <p className={cn("mt-2 text-center text-neutral-400 text-sm", typeClass("body"))}>
-            Gunakan email Google dan kata sandi Anda untuk melanjutkan.
+            Gunakan email Google atau email kampus resmi Anda.
           </p>
 
           {status === "success" ? (
@@ -155,19 +163,27 @@ export default function LoginPage() {
               {/* Email Input */}
               <div>
                 <label className="block text-xs font-mono text-neutral-300 mb-1.5">
-                  Email (@gmail.com)
+                  Email Google (@gmail.com) atau Kampus (@*.ac.id / .edu)
                 </label>
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="developer@gmail.com"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (status === "error") setErrorMessage("");
+                  }}
+                  placeholder="mahasiswa@kampus.ac.id atau nama@gmail.com"
                   required
                   className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-[#5e6ad2] focus:outline-none transition-colors font-mono"
                 />
-                {email && !isEmailGmail && (
+                {email && !isAllowedEmail && (
                   <span className="text-[11px] text-amber-400 font-mono mt-1 block">
-                    * Wajib menggunakan domain @gmail.com
+                    {emailCheck.message}
+                  </span>
+                )}
+                {email && isAllowedEmail && emailCheck.isAcademic && (
+                  <span className="text-[11px] text-emerald-400 font-mono mt-1 block">
+                    ✓ Email institusi akademik terverifikasi ({emailCheck.domain})
                   </span>
                 )}
               </div>
